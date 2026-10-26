@@ -26,8 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${syne.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans antialiased overflow-hidden w-screen h-screen">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${syne.variable} ${jetbrainsMono.variable}`}
+    >
+      <body
+        suppressHydrationWarning
+        className="font-sans antialiased overflow-hidden w-screen h-screen"
+      >
         {children}
       </body>
     </html>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowLeft,
   ArrowsClockwise,
@@ -42,7 +42,10 @@ import {
   StudioTheme,
   SUGGESTED_COLOR_PALETTES,
 } from '@/types/store';
-import { getCustomPrintPresets } from '@/components/canvas/ProceduralTextures';
+import {
+  CustomPrintPresetItem,
+  getCustomPrintPresets,
+} from '@/components/canvas/ProceduralTextures';
 import { LightingStudioPanel } from './LightingStudioPanel';
 
 export interface StoreOverlayProps {
@@ -177,7 +180,10 @@ export const StoreOverlay: React.FC<StoreOverlayProps> = ({
   const [savedPaletteFeedback, setSavedPaletteFeedback] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const printPresets = useMemo(() => getCustomPrintPresets(), []);
+  const [printPresets, setPrintPresets] = useState<CustomPrintPresetItem[]>([]);
+  useEffect(() => {
+    setPrintPresets(getCustomPrintPresets());
+  }, []);
   const hasActiveCustomPrint = Boolean(
     customPrint.enabled && customPrint.imageUrl
   );
